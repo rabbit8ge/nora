@@ -14,9 +14,9 @@ public class FavoriteContent {
     public static Map<String, Stock> mIdItemMap = new HashMap<String, Stock>();
 
     static {
-        addItem(new Stock("000001", "上证指数", "SZZS"));
-        addItem(new Stock("399001", "深证成指", "SZCZ"));
-        addItem(new Stock("601857", "中国石油", "ZGSY"));
+        addItem(new Stock("000001", Stock.StockType.STOCK_TYPE_SH, "上证指数", "SZZS"));
+        addItem(new Stock("399001", Stock.StockType.STOCK_TYPE_SZ, "深证成指", "SZCZ"));
+        addItem(new Stock("601857", Stock.StockType.STOCK_TYPE_SH, "中国石油", "ZGSY"));
     }
 
     public static Boolean addItem(Stock item) {

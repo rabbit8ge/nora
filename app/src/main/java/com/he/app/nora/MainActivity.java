@@ -2,6 +2,7 @@ package com.he.app.nora;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.StrictMode;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -45,6 +46,34 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
         //ab.hide();
 
         mFragManager = getSupportFragmentManager();
+
+        // HE: Without these lines, can't connect to internet.
+        /*StrictMode.setThreadPolicy(new StrictMode().ThreadPolicy.Builder()
+        .detectDiskReads()
+        .detectDiskWrites()
+        .detectNewWork() // or .detectAll() for all detectable problems.
+        .penaltyLog()
+        .build());
+
+        StrictMode.setVmPolicy(new StrictMode().VmPolicy.Builder()
+        .detectLeakedSqlLiteObjects()
+        .detectLeakedClosableObjects()
+        .penaltyLog()
+        .penaltyDeath()
+        .build());*/
+
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()   // or .detectAll() for all detectable problems
+                .penaltyLog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
     }
 
 

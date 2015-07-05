@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -101,7 +102,11 @@ public class FavoriteListFragment extends ListFragment {
             // fragment is attached to one) that an item has been selected.
             //FavoriteContent.FavoriteItem fi = (FavoriteContent.FavoriteItem) getListAdapter().getItem(position); // TODO.
             DataWrapper.Stock fi = ((FavoriteListAdapter)getListAdapter()).getItem(position);
-            mListener.onFragmentInteraction(fi.mID);
+            // mListener.onFragmentInteraction(fi.mID); // TODO.
+
+            //DataWrapper dw = new DataWrapper();
+            DataWrapper.Stock stk = DataWrapper.getStock("000001");
+            Toast.makeText(getActivity(), stk.mName, Toast.LENGTH_LONG);
         }
     }
 
@@ -132,7 +137,7 @@ public class FavoriteListFragment extends ListFragment {
             }
 
             DataWrapper.Stock fi = getItem(position);
-            //fi = DataWrapper.getStock(fi.mID);
+            fi = DataWrapper.getStock(fi.mID);
 
             TextView name =
                     (TextView) convertView.findViewById(R.id.favorite_list_name);

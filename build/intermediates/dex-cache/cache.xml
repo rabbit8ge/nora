@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/media/he/work/program/workspace/android/nora/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/media/he/work/program/workspace/android/nora/app/build/intermediates/pre-dexed/debug/classes-d5659bc5e7648bbeafe69ecc3d8da2b7a4cf737e.jar" />
+    </item>
+    <item
+        jar="/media/he/work/software/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/media/he/work/program/workspace/android/nora/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-2c8007d78e26a021e9a78121044d4af6c9c07bb9.jar" />
+    </item>
+    <item
+        jar="/media/he/work/program/workspace/android/nora/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/media/he/work/program/workspace/android/nora/app/build/intermediates/pre-dexed/debug/classes-cf141a0946073de07fc4352c33622c6ddc1bcf1e.jar" />
+    </item>
+    <item
+        jar="/media/he/work/program/workspace/android/nora/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/media/he/work/program/workspace/android/nora/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-0efcb6a779673a79c99da63863cb80fa45893abb.jar" />
+    </item>
+
+</items>

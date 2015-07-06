@@ -3,7 +3,9 @@ package com.he.app.nora;
 import android.app.Activity;
 import android.os.Bundle;
 //import android.app.ListFragment;
+import android.os.Handler;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,11 @@ public class FavoriteListFragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private FavoriteListAdapter mListAdapter = null;
+    private final Integer mRefreshSecond = 3; // Refresh every 3 second.
+    private Handler mTimerHandler = null;
+    private Runnable mTimerRunnable = null;
+
     // TODO: Rename and change types of parameters
     public static FavoriteListFragment newInstance(String param1, String param2) {
         FavoriteListFragment fragment = new FavoriteListFragment();
@@ -64,7 +71,27 @@ public class FavoriteListFragment extends ListFragment {
         // TODO: Change Adapter to display your content
         //setListAdapter(new ArrayAdapter<FavoriteContent.FavoriteItem>(getActivity(),
         //        android.R.layout.simple_list_item_1, android.R.id.text1, FavoriteContent.mItems));
-        setListAdapter(new FavoriteListAdapter(FavoriteContent.mItems));
+        mListAdapter = new FavoriteListAdapter(FavoriteContent.mItems);
+        setListAdapter(mListAdapter);
+        //setListAdapter(new FavoriteListAdapter(FavoriteContent.mItems));
+
+        // Auto refresh.
+        mTimerHandler = new Handler();
+        mTimerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                mListAdapter.notifyDataSetChanged();
+                mTimerHandler.postDelayed(mTimerRunnable, mRefreshSecond*1000);
+            }
+        };
+        mTimerHandler.postDelayed(mTimerRunnable, mRefreshSecond*1000);
+    }
+
+    @Override
+    public void onDestroyView() {
+        mTimerHandler.removeCallbacks(mTimerRunnable); // Stop repeater.
+
+        super.onDestroyView();
     }
 
     @Override
@@ -102,7 +129,7 @@ public class FavoriteListFragment extends ListFragment {
             // fragment is attached to one) that an item has been selected.
             //FavoriteContent.FavoriteItem fi = (FavoriteContent.FavoriteItem) getListAdapter().getItem(position); // TODO.
             DataWrapper.Stock fi = ((FavoriteListAdapter)getListAdapter()).getItem(position);
-            // mListener.onFragmentInteraction(fi.mID); // TODO.
+            mListener.onFragmentInteraction(fi.mID); // TODO.
 
             //DataWrapper dw = new DataWrapper();
             DataWrapper.Stock stk = DataWrapper.getStock("000001");
@@ -150,6 +177,8 @@ public class FavoriteListFragment extends ListFragment {
             TextView price =
                     (TextView) convertView.findViewById(R.id.favorite_list_price);
             price.setText(fi.mPrice.toString());
+
+            Log.d("hello", "Refresh");
 
             return convertView;
         }

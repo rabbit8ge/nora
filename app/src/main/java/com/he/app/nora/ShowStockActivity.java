@@ -4,12 +4,23 @@ import com.he.app.nora.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 
 /**
@@ -49,6 +60,8 @@ public class ShowStockActivity extends Activity {
     private SystemUiHider mSystemUiHider;
 
     private static WebView mWebView = null;
+
+    private String mStockId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +131,55 @@ public class ShowStockActivity extends Activity {
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
-        mWebView = (WebView) findViewById(R.id.fullscreen_content);
-        mWebView.loadUrl("http://www.baidu.com/");
+        //mWebView = (WebView) findViewById(R.id.fullscreen_content);
+        //mWebView.loadUrl("http://www.baidu.com/");
+        //mWebView.loadUrl("http://finance.sina.com.cn/flash/cn.swf?symbol=sh000001");
+        /*mWebView.loadData("<html>\n" +
+                "<body>\n" +
+                "\n" +
+                "<div>\n" +
+                "<embed src=\"http://finance.sina.com.cn/flash/cn.swf?symbol=sh000001\" quality=\"high\" type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" allowfullscreen=\"true\" wmode=\"opaque\" height=\"490\" width=\"560\"></embed>\n" +
+                "</div>" +
+                "</body></html>");*/
+//        try {
+//            mWebView.getSettings().setJavaScriptEnabled(true);
+//            mWebView.loadData(URLEncoder.encode("<html>\n" +
+//                            "<body>" +
+//                            "<div>abcd" +
+//                            "<embed src=\"http://finance.sina.com.cn/flash/cn.swf?symbol=sh000001\" quality=\"high\" type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" allowfullscreen=\"true\" wmode=\"opaque\" height=\"490\" width=\"560\"></embed>" +
+//                            "</div>" +
+//                            "</body></html>", "utf-8"),
+//                    "text/html", "utf-8");
+//            mWebView.loadUrl("http://image.sinajs.cn/newchart/min/n/sh000001.gif");
+//        } catch(Exception e) {}
+
+        String sUrlPre = "http://image.sinajs.cn/newchart/min/n/";
+        mStockId = getIntent().getStringExtra("stockid");
+        Bitmap img = getBitmapFromUrl(sUrlPre + "sh" + mStockId + ".gif");
+        if(img == null)
+            img = getBitmapFromUrl(sUrlPre + "sz" + mStockId + ".gif");
+        if(img == null)
+            img = null;
+
+        ImageView iv = (ImageView) findViewById(R.id.fullscreen_content);
+        iv.setImageBitmap(img);
+    }
+
+    private Bitmap getBitmapFromUrl(String img) {
+        URL url;
+        Bitmap bitmap = null;
+        try {
+            url = new URL(img);
+            InputStream is = url.openConnection().getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            bitmap = BitmapFactory.decodeStream(bis);
+            bis.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 
     @Override

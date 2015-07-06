@@ -125,6 +125,7 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
 
         // Start the ShowStockActivity to show the favorite stock.
         Intent i = new Intent(MainActivity.this, ShowStockActivity.class);
+        i.putExtra("stockid", id);
         startActivity(i);
     }
 

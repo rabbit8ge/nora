@@ -19,7 +19,8 @@ public class DataWrapper {
 
     private static DataFetcher mDataFetcher = new DataFetcher_Sina();
 
-    public static Stock getStock(String id) {
+    public static Stock getStock(String desc) {
+        Integer.valueOf(desc);
         return mDataFetcher.parseStockInfo(id, mDataFetcher.getStockInfo(id));
     }
 
@@ -165,14 +166,15 @@ class DataFetcher_Sina extends DataFetcher {
         }
         return sb.toString();
 */
-        String pre = "";
-        if(id.charAt(0) == '3') // TODO.
-            pre = "sz";
-        else
-            pre = "sh";
 
+        String sUrlPre = "http://hq.sinajs.cn/list=";
         HttpDownloader hd = new HttpDownloader();
-        return hd.Download("http://hq.sinajs.cn/list="+pre+id);
+        String s = hd.Download(sUrlPre+"sh"+id);
+        if(s.length() < 25) // TODO
+            s = hd.Download(sUrlPre+"sz"+id);
+        if(s.length() < 25)
+            return "";
+        return s;
     }
 
     @Override

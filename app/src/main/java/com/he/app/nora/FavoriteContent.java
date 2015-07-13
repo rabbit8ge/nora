@@ -33,4 +33,12 @@ public class FavoriteContent {
 */
         return Boolean.TRUE; // TODO;
     }
+
+    public static ArrayList<String> getDesc() {
+        ArrayList<String> descs = new ArrayList<String>();
+        for(Stock stk : mItems) {
+            descs.add(stk.mID);
+        }
+        return descs;
+    }
 }

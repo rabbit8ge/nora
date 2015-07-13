@@ -1,6 +1,7 @@
 package com.he.app.nora;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.app.ListFragment;
 import android.os.Handler;
@@ -80,8 +81,9 @@ public class FavoriteListFragment extends ListFragment {
         mTimerRunnable = new Runnable() {
             @Override
             public void run() {
-                mListAdapter.notifyDataSetChanged();
-                mTimerHandler.postDelayed(mTimerRunnable, mRefreshSecond*1000);
+                //mListAdapter.notifyDataSetChanged();
+                new AsyncListUpdater().execute((String[]) FavoriteContent.getDesc().toArray(new String[0])); // Update data. TODO: Exception when no 'new String[0]'.
+                mTimerHandler.postDelayed(mTimerRunnable, mRefreshSecond * 1000);
             }
         };
         mTimerHandler.postDelayed(mTimerRunnable, mRefreshSecond*1000);
@@ -152,6 +154,25 @@ public class FavoriteListFragment extends ListFragment {
         public void onFragmentInteraction(String id);
     }
 
+    private class AsyncListUpdater extends AsyncTask<String, Integer, ArrayList<DataWrapper.Stock>> {
+        @Override
+        protected ArrayList<DataWrapper.Stock> doInBackground(String... strings) {
+            ArrayList<DataWrapper.Stock> stks = new ArrayList<DataWrapper.Stock>();
+            for(String str : strings) {
+                stks.add(DataWrapper.getStock(str));
+            }
+            return stks;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<DataWrapper.Stock> stocks) {
+            super.onPostExecute(stocks);
+            FavoriteContent.mItems = stocks;
+            Log.i("dd", FavoriteContent.mItems.get(0).mPrice.toString());
+            mListAdapter.notifyDataSetChanged();
+        }
+    }
+
     private class FavoriteListAdapter extends ArrayAdapter<DataWrapper.Stock> {
         public FavoriteListAdapter(ArrayList<DataWrapper.Stock> items) {
             super(getActivity(), 0, items);
@@ -159,12 +180,13 @@ public class FavoriteListFragment extends ListFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             if(convertView == null) {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.favorite_list, null);
             }
 
-            DataWrapper.Stock fi = getItem(position);
-            fi = DataWrapper.getStock(fi.mID);
+            //DataWrapper.Stock fi = getItem(position);
+            DataWrapper.Stock fi = FavoriteContent.mItems.get(position);
 
             TextView name =
                     (TextView) convertView.findViewById(R.id.favorite_list_name);
@@ -178,7 +200,7 @@ public class FavoriteListFragment extends ListFragment {
                     (TextView) convertView.findViewById(R.id.favorite_list_price);
             price.setText(fi.mPrice.toString());
 
-            Log.d("hello", "Refresh");
+           // Log.d("hello", fi.mPrice.toString());
 
             return convertView;
         }

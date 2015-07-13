@@ -1,5 +1,6 @@
 package com.he.app.nora;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,13 +16,14 @@ import java.nio.charset.Charset;
 /**
  * Created by he on 15-7-5.
  */
+
 public class DataWrapper {
 
     private static DataFetcher mDataFetcher = new DataFetcher_Sina();
 
     public static Stock getStock(String desc) {
         Integer.valueOf(desc);
-        return mDataFetcher.parseStockInfo(id, mDataFetcher.getStockInfo(id));
+        return mDataFetcher.parseStockInfo(desc, mDataFetcher.getStockInfo(desc));
     }
 
 

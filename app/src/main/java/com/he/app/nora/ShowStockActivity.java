@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -116,13 +117,21 @@ public class ShowStockActivity extends Activity {
 
         // Set up the user interaction to manually show or hide the system UI.
         contentView.setOnClickListener(new View.OnClickListener() {
+            long mLastClick = 0;
             @Override
             public void onClick(View view) {
-                if (TOGGLE_ON_CLICK) {
-                    mSystemUiHider.toggle();
-                } else {
-                    mSystemUiHider.show();
-                }
+//                long lTime = System.currentTimeMillis();
+//                if(lTime-mLastClick < 1000) { // Double click.
+//                    Log.d("show", "double click");
+//                    if (TOGGLE_ON_CLICK) {
+//                        //mSystemUiHider.toggle();
+//                    } else {
+//                        //mSystemUiHider.show();
+//                    }
+//                    return;
+//                }
+//
+//                mLastClick = lTime;
             }
         });
 

@@ -15,7 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import org.json.JSONException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -76,6 +78,27 @@ public class FavoriteListFragment extends ListFragment {
         setListAdapter(mListAdapter);
         //setListAdapter(new FavoriteListAdapter(FavoriteContent.mItems));
 
+        // Load favorite list from disk. Must before auto refresh.
+        DataWrapper.DataSerializer ds = new DataWrapper.DataSerializer(getActivity());
+        try {
+            FavoriteContent.mItems.clear();
+            // FavoriteContent.mItems = ds.loadFavorites(); // TODO: This line will not take effect because the adapter's linked array not changed.
+            FavoriteContent.mItems.addAll(ds.loadFavorites());
+        } catch (FileNotFoundException e) {
+            // ..
+        } catch (IOException e) {
+            // ..
+        } catch (JSONException e) {
+            // ..
+        } finally {
+            if(FavoriteContent.mItems.size() == 0) {
+                FavoriteContent.mItems.add(new DataWrapper.Stock("000001"));
+                FavoriteContent.mItems.add(new DataWrapper.Stock("399001"));
+                FavoriteContent.mItems.add(new DataWrapper.Stock("601857"));
+            }
+        }
+
+
         // Auto refresh.
         mTimerHandler = new Handler();
         mTimerRunnable = new Runnable() {
@@ -121,6 +144,16 @@ public class FavoriteListFragment extends ListFragment {
         mListener = null;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            new DataWrapper.DataSerializer(getActivity()).saveFavorites(FavoriteContent.mItems);
+        } catch (JSONException e) {
+
+        } catch(IOException ie) {
+        }
+    }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
@@ -167,7 +200,8 @@ public class FavoriteListFragment extends ListFragment {
         @Override
         protected void onPostExecute(ArrayList<DataWrapper.Stock> stocks) {
             super.onPostExecute(stocks);
-            FavoriteContent.mItems = stocks;
+            FavoriteContent.mItems.clear();
+            FavoriteContent.mItems.addAll(stocks);
             Log.i("dd", FavoriteContent.mItems.get(0).mPrice.toString());
             mListAdapter.notifyDataSetChanged();
         }

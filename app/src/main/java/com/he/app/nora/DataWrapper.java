@@ -1,17 +1,30 @@
 package com.he.app.nora;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by he on 15-7-5.
@@ -41,11 +54,16 @@ public class DataWrapper {
         public StockType       mType;
 
         public Stock() {
-            mID = "000000";
+            mID = "000001";
             mName = "";
             mAbbr = "";
             mPrice = 0.0f;
             mType = StockType.STOCK_TYPE_SH;
+        }
+
+        public Stock(String id) {
+            mID = id;
+            mName = "";
         }
 
         public Stock(String id, StockType type, String name, String abbr) {
@@ -59,6 +77,82 @@ public class DataWrapper {
         public String toString() {
             return mID + ", " + mName + ", 0.00";
             //return super.toString();
+        }
+
+        private static final String JSON_ID = "id";
+        private static final String JSON_NAME = "name";
+        private static final String JSON_PRICE = "price";
+        public JSONObject toJSON() throws JSONException {
+            JSONObject json = new JSONObject();
+            json.put(JSON_ID, mID);
+            json.put(JSON_NAME, mName);
+            json.put(JSON_PRICE, mPrice.toString());
+            return json;
+        }
+
+        public Stock(JSONObject json) throws JSONException {
+            //mID = UUID.fromString(json.getString(JSON_ID));
+            mID = json.getString(JSON_ID);
+            if(json.has(JSON_NAME)) {
+                mName = json.getString(JSON_NAME);
+            }
+            if(json.has(JSON_PRICE)) {
+                mPrice = Float.valueOf(json.getString(JSON_PRICE));
+            }
+        }
+    }
+
+    public static class DataSerializer {
+        private Context mContext;
+        private final static String mFavoriteFile = "nora_favorite.json";
+
+        public DataSerializer(Context c) {
+            mContext = c;
+        }
+
+        public void saveFavorites(ArrayList<Stock> items)
+        throws JSONException, IOException {
+            JSONArray array = new JSONArray();
+            for (Stock stk : items) {
+                array.put(stk.toJSON());
+            }
+
+            // Write to disk.
+            Writer writer = null;
+            try {
+                OutputStream out = mContext
+                        .openFileOutput(mFavoriteFile, Context.MODE_PRIVATE);
+                writer = new OutputStreamWriter(out);
+                writer.write(array.toString());
+            } finally {
+                if(writer != null)
+                    writer.close();
+            }
+        }
+
+        public ArrayList<Stock> loadFavorites() throws IOException, JSONException {
+            ArrayList<Stock> stocks = new ArrayList<Stock>();
+            BufferedReader reader = null;
+
+            try {
+                InputStream in = mContext.openFileInput(mFavoriteFile);
+                reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder jsonString = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    jsonString.append(line);
+                }
+
+                JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
+                for (int i = 0; i < array.length(); i++) {
+                    stocks.add(new Stock(array.getJSONObject(i)));
+                }
+            } finally {
+                if(reader != null)
+                    reader.close();
+            }
+
+            return stocks;
         }
     }
 }

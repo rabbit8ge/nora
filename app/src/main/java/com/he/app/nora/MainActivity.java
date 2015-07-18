@@ -63,8 +63,8 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
         .build());*/
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
+                //.detectDiskReads()
+                //.detectDiskWrites()
                 .detectNetwork()   // or .detectAll() for all detectable problems
                 .penaltyLog()
                 .build());

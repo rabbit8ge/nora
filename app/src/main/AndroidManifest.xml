@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.he.app.nora" >
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -25,5 +25,10 @@
             android:label="@string/title_activity_show_stock"
             android:theme="@style/FullscreenTheme" >
         </activity>
+        <activity
+            android:name=".display.ShowAll"
+            android:label="@string/title_activity_show_all" >
+        </activity>
     </application>
+
 </manifest>

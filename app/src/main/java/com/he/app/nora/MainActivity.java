@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
+import com.he.app.nora.display.*;
 public class MainActivity extends ActionBarActivity implements FavoriteListFragment.OnFragmentInteractionListener {
 
     // Navigate ids.
@@ -124,7 +124,7 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
         //Toast.makeText(this, id, Toast.LENGTH_LONG);
 
         // Start the ShowStockActivity to show the favorite stock.
-        Intent i = new Intent(MainActivity.this, ShowStockActivity.class);
+        Intent i = new Intent(MainActivity.this, ShowAll.class /*ShowStockActivity.class*/);
         i.putExtra("stockid", id);
         startActivity(i);
     }

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="AndroidChart">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/AndroidChart.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

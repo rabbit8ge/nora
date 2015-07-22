@@ -55,5 +55,15 @@
     <string name="radarchart_title3">title3</string>
     <string name="radarchart_title4">title4</string>
     <string name="radarchart_title5">title5</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="search_label">Search Label</string>
+    <string name="search_hint">Search Stock, type stock number or acronym</string>
+    <string name="menu_route">Menu Route</string>
+    <string name="search_button_text">Search</string>
+    <string name="add_to_favorite">Add to Favoriate</string>
+    <string name="remove_from_favorite">Remove from Favorite</string>
+
+    <!-- error information -->
+    <string name="error_can_not_find_stock">Can\'t find the stock:</string>
 <!--zy end-->
 </resources>

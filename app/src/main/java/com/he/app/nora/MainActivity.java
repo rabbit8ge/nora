@@ -1,7 +1,7 @@
 package com.he.app.nora;
 
+import android.app.SearchManager;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,18 +14,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.he.app.nora.display.*;
 public class MainActivity extends ActionBarActivity implements FavoriteListFragment.OnFragmentInteractionListener {
 
     // Navigate ids.
     private final int NAVIGATE_ID_HOME = Menu.FIRST + 0;
     private final int NAVIGATE_ID_FAVORITE = Menu.FIRST + 1;
     private final int NAVIGATE_ID_PERSONAL = Menu.FIRST + 2;
+    private final int SEARCH_MENU = Menu.FIRST + 3;
 
     private FragmentManager mFragManager;
 
@@ -74,6 +73,22 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
                 .penaltyLog()
                 .penaltyDeath()
                 .build());
+
+        // Search.
+        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+        //handleSearchQuery(getIntent());
+
+        // Test
+       // Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+       // startActivity(intent);
+    }
+
+    private void handleSearchQuery(Intent queryIntent) {
+        String queryAction = queryIntent.getAction();
+        if(Intent.ACTION_SEARCH.equals(queryAction)) {
+            Toast.makeText(this, queryIntent.getStringExtra(SearchManager.QUERY),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -88,6 +103,7 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
         menu.add(0, NAVIGATE_ID_PERSONAL, 0, "My");
         // menu.findItem(); // TODO: Set menu background.
         // HE_END
+        menu.add(0, SEARCH_MENU, 0, "Search Menu").setIcon(android.R.drawable.ic_menu_search);
 
         return true;
     }
@@ -109,6 +125,12 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
         } else if(id == NAVIGATE_ID_PERSONAL) {
 
         }
+        else if(id == SEARCH_MENU) {
+            //this.onSearchRequested();
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -120,12 +142,21 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
     }
 
     @Override
+    public boolean onSearchRequested() {
+        // Override to satisfy some requirement.
+        Bundle bundle = new Bundle();
+        bundle.putString("data", "ddd");
+        startSearch("", false, bundle, false);
+        return true;
+    }
+
+    @Override
     public void onFragmentInteraction(String id) {
         //Toast.makeText(this, id, Toast.LENGTH_LONG);
 
         // Start the ShowStockActivity to show the favorite stock.
-        Intent i = new Intent(MainActivity.this, ShowAll.class /*ShowStockActivity.class*/);
-        i.putExtra("stockid", id);
+        Intent i = new Intent(MainActivity.this, ShowStockActivity.class);
+        i.putExtra(ShowStockActivity.INTENT_KEY_STOCK_ID, id);
         startActivity(i);
     }
 
@@ -155,6 +186,7 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
         private Button mBtnHome;
         private Button mBtnFavorite;
         private Button mBtnMy;
+        private ImageButton mBtnSearch;
 
         public NavigatorFragment() {
         }
@@ -171,6 +203,7 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
             mBtnHome = (Button) rootView.findViewById(R.id.btn_home);
             mBtnFavorite = (Button) rootView.findViewById(R.id.btn_favorite);
             mBtnMy = (Button) rootView.findViewById(R.id.btn_my);
+            mBtnSearch = (ImageButton) rootView.findViewById(R.id.btn_search);
 
             mBtnHome.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -192,6 +225,14 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
                     trans.replace(R.id.frag_main, frag, "frag_favorite");
                     trans.addToBackStack("frag_favorite");
                     trans.commit();
+                }
+            });
+            mBtnSearch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /*Intent intent = new Intent(getActivity(), SearchActivity.class);
+                    startActivity(intent);*/
+                    getActivity().onSearchRequested();
                 }
             });
 

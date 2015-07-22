@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\zy\AndroidStudioProjects\nora\app\libs\AndroidChart.jar"
+        jar="/media/he/work/program/workspace/android/nora/app/libs/AndroidChart.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="8a7519779e01b607debba1e8f218cd0e8ae3c8ed">
-        <dex dex="C:\Users\zy\AndroidStudioProjects\nora\app\build\intermediates\pre-dexed\debug\AndroidChart-611589953eca71a4c500f2c981c246a755491be1.jar" />
+        <dex dex="/media/he/work/program/workspace/android/nora/app/build/intermediates/pre-dexed/debug/AndroidChart-2716c1e703b5ce299c6eec311f146a27f4a425c8.jar" />
     </item>
 
 </items>

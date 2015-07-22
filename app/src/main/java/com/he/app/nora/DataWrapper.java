@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -40,7 +41,7 @@ public class DataWrapper {
     }
 
 
-    public static class Stock {
+    public static class Stock implements Serializable {
         enum StockType {
             STOCK_TYPE_SH,
             STOCK_TYPE_SZ,

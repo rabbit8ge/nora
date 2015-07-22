@@ -1,6 +1,10 @@
 package com.he.app.nora;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.app.ListFragment;
@@ -33,6 +37,8 @@ public class FavoriteListFragment extends ListFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    public static final String ACTION_FAVORITE_CHANGE = "action.favoriteChange";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -74,16 +80,18 @@ public class FavoriteListFragment extends ListFragment {
         // TODO: Change Adapter to display your content
         //setListAdapter(new ArrayAdapter<FavoriteContent.FavoriteItem>(getActivity(),
         //        android.R.layout.simple_list_item_1, android.R.id.text1, FavoriteContent.mItems));
-        mListAdapter = new FavoriteListAdapter(FavoriteContent.mItems);
+        //mListAdapter = new FavoriteListAdapter(FavoriteContent.mItems);
+        mListAdapter = new FavoriteListAdapter(FavoriteContent.getItems());
         setListAdapter(mListAdapter);
         //setListAdapter(new FavoriteListAdapter(FavoriteContent.mItems));
 
         // Load favorite list from disk. Must before auto refresh.
         DataWrapper.DataSerializer ds = new DataWrapper.DataSerializer(getActivity());
         try {
-            FavoriteContent.mItems.clear();
+            //FavoriteContent.mItems.clear();
             // FavoriteContent.mItems = ds.loadFavorites(); // TODO: This line will not take effect because the adapter's linked array not changed.
-            FavoriteContent.mItems.addAll(ds.loadFavorites());
+            //FavoriteContent.mItems.addAll(ds.loadFavorites());
+            FavoriteContent.setItems(ds.loadFavorites());
         } catch (FileNotFoundException e) {
             // ..
         } catch (IOException e) {
@@ -91,10 +99,10 @@ public class FavoriteListFragment extends ListFragment {
         } catch (JSONException e) {
             // ..
         } finally {
-            if(FavoriteContent.mItems.size() == 0) {
-                FavoriteContent.mItems.add(new DataWrapper.Stock("000001"));
-                FavoriteContent.mItems.add(new DataWrapper.Stock("399001"));
-                FavoriteContent.mItems.add(new DataWrapper.Stock("601857"));
+            if(FavoriteContent.getItems().size() == 0) {
+                FavoriteContent.addItem("000001");
+                FavoriteContent.addItem("399001");
+                FavoriteContent.addItem("601857");
             }
         }
 
@@ -110,11 +118,28 @@ public class FavoriteListFragment extends ListFragment {
             }
         };
         mTimerHandler.postDelayed(mTimerRunnable, mRefreshSecond*1000);
+
+        // Message receiver.
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_FAVORITE_CHANGE);
+        getActivity().registerReceiver(mRcvBroadcast, intentFilter);
     }
+
+    // Broadcast receiver.
+    private BroadcastReceiver mRcvBroadcast = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals(ACTION_FAVORITE_CHANGE))
+                mListAdapter.notifyDataSetChanged();
+        }
+    };
 
     @Override
     public void onDestroyView() {
         mTimerHandler.removeCallbacks(mTimerRunnable); // Stop repeater.
+
+        // Remove receiver.
+        getActivity().unregisterReceiver(mRcvBroadcast);
 
         super.onDestroyView();
     }
@@ -148,7 +173,7 @@ public class FavoriteListFragment extends ListFragment {
     public void onPause() {
         super.onPause();
         try {
-            new DataWrapper.DataSerializer(getActivity()).saveFavorites(FavoriteContent.mItems);
+            new DataWrapper.DataSerializer(getActivity()).saveFavorites(FavoriteContent.getItems());
         } catch (JSONException e) {
 
         } catch(IOException ie) {
@@ -200,9 +225,8 @@ public class FavoriteListFragment extends ListFragment {
         @Override
         protected void onPostExecute(ArrayList<DataWrapper.Stock> stocks) {
             super.onPostExecute(stocks);
-            FavoriteContent.mItems.clear();
-            FavoriteContent.mItems.addAll(stocks);
-            Log.i("dd", FavoriteContent.mItems.get(0).mPrice.toString());
+            FavoriteContent.setItems(stocks);
+//            Log.i("dd", FavoriteContent..get(0).mPrice.toString());
             mListAdapter.notifyDataSetChanged();
         }
     }
@@ -220,7 +244,7 @@ public class FavoriteListFragment extends ListFragment {
             }
 
             //DataWrapper.Stock fi = getItem(position);
-            DataWrapper.Stock fi = FavoriteContent.mItems.get(position);
+            DataWrapper.Stock fi = FavoriteContent.getItems().get(position);
 
             TextView name =
                     (TextView) convertView.findViewById(R.id.favorite_list_name);

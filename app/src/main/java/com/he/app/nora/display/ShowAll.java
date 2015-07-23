@@ -51,7 +51,7 @@ import cn.limc.androidcharts.view.SlipMinusStickChart;
 import cn.limc.androidcharts.view.SlipStickChart;
 import cn.limc.androidcharts.view.SpiderWebChart;
 import cn.limc.androidcharts.view.StickChart;
-
+//todo: clear charts, reset interface
 public class ShowAll extends ActionBarActivity {
 
     List<IStickEntity> ohlc;
@@ -168,21 +168,21 @@ public class ShowAll extends ActionBarActivity {
         this.linechart = (LineChart) findViewById(R.id.linechart);
         List<LineEntity<DateValueEntity>> lines = new ArrayList<LineEntity<DateValueEntity>>();
 
-        // ����5�վ���
+        // 计算5日均线
         LineEntity<DateValueEntity> MA5 = new LineEntity<DateValueEntity>();
         MA5.setTitle("MA5");
         MA5.setLineColor(Color.WHITE);
         MA5.setLineData(initMA(5));
         lines.add(MA5);
 
-        // ����10�վ���
+        // 计算10日均线
         LineEntity<DateValueEntity> MA10 = new LineEntity<DateValueEntity>();
         MA10.setTitle("MA10");
         MA10.setLineColor(Color.RED);
         MA10.setLineData(initMA(10));
         lines.add(MA10);
 
-        // ����25�վ���
+        // 计算25日均线
         LineEntity<DateValueEntity> MA25 = new LineEntity<DateValueEntity>();
         MA25.setTitle("MA25");
         MA25.setLineColor(Color.GREEN);
@@ -215,7 +215,7 @@ public class ShowAll extends ActionBarActivity {
         linechart.setAxisXPosition(GridChart.AXIS_X_POSITION_BOTTOM);
         linechart.setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // Ϊchart1���Ӿ���
+        // 为chart1增加均线
         linechart.setLinesData(lines);
     }
 
@@ -223,14 +223,14 @@ public class ShowAll extends ActionBarActivity {
         this.sliplinechart = (SlipLineChart) findViewById(R.id.sliplinechart);
         List<LineEntity<DateValueEntity>> lines = new ArrayList<LineEntity<DateValueEntity>>();
 
-        // ����5�վ���
+        // 计算5日均线
         LineEntity<DateValueEntity> MA5 = new LineEntity<DateValueEntity>();
         MA5.setTitle("HIGH");
         MA5.setLineColor(Color.WHITE);
         MA5.setLineData(dv1);
         lines.add(MA5);
 
-        // ����10�վ���
+        // 计算10日均线
         LineEntity<DateValueEntity> MA10 = new LineEntity<DateValueEntity>();
         MA10.setTitle("LOW");
         MA10.setLineColor(Color.RED);
@@ -271,14 +271,14 @@ public class ShowAll extends ActionBarActivity {
         this.slipareachart = (SlipAreaChart) findViewById(R.id.slipareachart);
         List<LineEntity<DateValueEntity>> lines = new ArrayList<LineEntity<DateValueEntity>>();
 
-        // ����5�վ���
+        // 计算5日均线
         LineEntity<DateValueEntity> MA5 = new LineEntity<DateValueEntity>();
         MA5.setTitle("HIGH");
         MA5.setLineColor(Color.WHITE);
         MA5.setLineData(dv1);
         lines.add(MA5);
 
-        // ����10�վ���
+        // 计算10日均线
         LineEntity<DateValueEntity> MA10 = new LineEntity<DateValueEntity>();
         MA10.setTitle("LOW");
         MA10.setLineColor(Color.RED);
@@ -319,14 +319,14 @@ public class ShowAll extends ActionBarActivity {
         this.slipbandchart = (SlipBandAreaChart) findViewById(R.id.slipbandchart);
         List<LineEntity<DateValueEntity>> lines = new ArrayList<LineEntity<DateValueEntity>>();
 
-        // ����5�վ���
+        // 计算5日均线
         LineEntity<DateValueEntity> MA5 = new LineEntity<DateValueEntity>();
         MA5.setTitle("HIGH");
         MA5.setLineColor(Color.WHITE);
         MA5.setLineData(dv1);
         lines.add(MA5);
 
-        // ����10�վ���
+        // 计算10日均线
         LineEntity<DateValueEntity> MA10 = new LineEntity<DateValueEntity>();
         MA10.setTitle("LOW");
         MA10.setLineColor(Color.RED);
@@ -382,15 +382,15 @@ public class ShowAll extends ActionBarActivity {
         stickchart.setAxisXPosition(GridChart.AXIS_X_POSITION_BOTTOM);
         stickchart.setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // �����ʾ����
+        // 最大显示足数
         stickchart.setMaxSticksNum(52);
-        // ���γ����
+        // 最大纬线数
         stickchart.setLatitudeNum(2);
-        // �������
+        // 最大经线数
         stickchart.setLongitudeNum(3);
-        // ���۸�
+        // 最大价格
         stickchart.setMaxValue(10000);
-        // ��С�۸�
+        // 最小价格
         stickchart.setMinValue(100);
 
         stickchart.setDisplayLongitudeTitle(true);
@@ -405,7 +405,7 @@ public class ShowAll extends ActionBarActivity {
         stickchart.setAxisXDateSourceFormat("yyyyMMdd");
 
 
-        // Ϊchart1���Ӿ���
+        // 为chart1增加均线
         stickchart.setStickData(new ListChartData<IStickEntity>(vol));
     }
 
@@ -428,13 +428,13 @@ public class ShowAll extends ActionBarActivity {
         slipstickchart.setAxisXPosition(GridChart.AXIS_X_POSITION_BOTTOM);
         slipstickchart.setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // ���γ����
+        // 最大纬线数
         slipstickchart.setLatitudeNum(2);
-        // �������
+        // 最大经线数
         slipstickchart.setLongitudeNum(3);
-        // ���۸�
+        // 最大价格
         slipstickchart.setMaxValue(600000);
-        // ��С�۸�
+        // 最小价格
         slipstickchart.setMinValue(100);
 
         slipstickchart.setDisplayFrom(10);
@@ -457,7 +457,7 @@ public class ShowAll extends ActionBarActivity {
         slipstickchart.setAxisXDateSourceFormat("yyyyMMdd");
 
         IChartData<IStickEntity> vol = new ListChartData<IStickEntity>(this.vol);
-        // Ϊchart1���Ӿ���
+        // 为chart1增加均线
         slipstickchart.setStickData(vol);
     }
 
@@ -472,13 +472,13 @@ public class ShowAll extends ActionBarActivity {
         coloredslipstickchart.setLongitudeFontColor(Color.WHITE);
         coloredslipstickchart.setLatitudeFontColor(Color.WHITE);
 
-        // ���γ����
+        // 最大纬线数
         coloredslipstickchart.setLatitudeNum(2);
-        // �������
+        // 最大经线数
         coloredslipstickchart.setLongitudeNum(3);
-        // ���۸�
+        // 最大价格
         coloredslipstickchart.setMaxValue(600000);
-        // ��С�۸�
+        // 最小价格
         coloredslipstickchart.setMinValue(100);
 
         coloredslipstickchart.setDisplayFrom(10);
@@ -505,7 +505,7 @@ public class ShowAll extends ActionBarActivity {
                 .setAxisXPosition(GridChart.AXIS_X_POSITION_BOTTOM);
         coloredslipstickchart.setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // Ϊchart1���Ӿ���
+        // 为chart1增加均线
         coloredslipstickchart
                 .setStickData(new ListChartData<IStickEntity>(volc));
     }
@@ -513,24 +513,24 @@ public class ShowAll extends ActionBarActivity {
     private void initMAStickChart() {
         this.mastickchart = (MAStickChart) findViewById(R.id.mastickchart);
 
-        // ���¼���VOL
+        // 以下计算VOL
         List<LineEntity<DateValueEntity>> vlines = new ArrayList<LineEntity<DateValueEntity>>();
 
-        // ����5�վ���
+        // 计算5日均线
         LineEntity<DateValueEntity> VMA5 = new LineEntity<DateValueEntity>();
         VMA5.setTitle("MA5");
         VMA5.setLineColor(Color.WHITE);
         VMA5.setLineData(initVMA(5));
         vlines.add(VMA5);
 
-        // ����10�վ���
+        // 计算10日均线
         LineEntity<DateValueEntity> VMA10 = new LineEntity<DateValueEntity>();
         VMA10.setTitle("MA10");
         VMA10.setLineColor(Color.RED);
         VMA10.setLineData(initVMA(10));
         vlines.add(VMA10);
 
-        // ����25�վ���
+        // 计算25日均线
         LineEntity<DateValueEntity> VMA25 = new LineEntity<DateValueEntity>();
         VMA25.setTitle("MA25");
         VMA25.setLineColor(Color.GREEN);
@@ -545,15 +545,15 @@ public class ShowAll extends ActionBarActivity {
         mastickchart.setLongitudeFontColor(Color.WHITE);
         mastickchart.setLatitudeFontColor(Color.WHITE);
 
-        // �����ʾ����
+        // 最大显示足数
         mastickchart.setMaxSticksNum(52);
-        // ���γ����
+        // 最大纬线数
         mastickchart.setLatitudeNum(2);
-        // �������
+        // 最大经线数
         mastickchart.setLongitudeNum(3);
-        // ���۸�
+        // 最大价格
         mastickchart.setMaxValue(10000);
-        // ��С�۸�
+        // 最小价格
         mastickchart.setMinValue(100);
 
         mastickchart.setDisplayLongitudeTitle(true);
@@ -571,9 +571,9 @@ public class ShowAll extends ActionBarActivity {
         mastickchart.setAxisXPosition(GridChart.AXIS_X_POSITION_BOTTOM);
         mastickchart.setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // Ϊchart1���Ӿ���
+        // 为chart1增加均线
         mastickchart.setLinesData(vlines);
-        // Ϊchart1���Ӿ���
+        // 为chart1增加均线
         mastickchart.setStickData(new ListChartData<IStickEntity>(vol));
 
     }
@@ -581,24 +581,24 @@ public class ShowAll extends ActionBarActivity {
     private void initMASlipStickChart() {
         this.maslipstickchart = (MASlipStickChart) findViewById(R.id.maslipstickchart);
 
-        // ���¼���VOL
+        // 以下计算VOL
         List<LineEntity<DateValueEntity>> vlines = new ArrayList<LineEntity<DateValueEntity>>();
 
-        // ����5�վ���
+        // 计算5日均线
         LineEntity<DateValueEntity> VMA5 = new LineEntity<DateValueEntity>();
         VMA5.setTitle("MA5");
         VMA5.setLineColor(Color.WHITE);
         VMA5.setLineData(initVMA(5));
         vlines.add(VMA5);
 
-        // ����10�վ���
+        // 计算10日均线
         LineEntity<DateValueEntity> VMA10 = new LineEntity<DateValueEntity>();
         VMA10.setTitle("MA10");
         VMA10.setLineColor(Color.RED);
         VMA10.setLineData(initVMA(10));
         vlines.add(VMA10);
 
-        // ����25�վ���
+        // 计算25日均线
         LineEntity<DateValueEntity> VMA25 = new LineEntity<DateValueEntity>();
         VMA25.setTitle("MA25");
         VMA25.setLineColor(Color.GREEN);
@@ -613,13 +613,13 @@ public class ShowAll extends ActionBarActivity {
         maslipstickchart.setLongitudeFontColor(Color.WHITE);
         maslipstickchart.setLatitudeFontColor(Color.WHITE);
 
-        // ���γ����
+        // 最大纬线数
         maslipstickchart.setLatitudeNum(2);
-        // �������
+        // 最大经线数
         maslipstickchart.setLongitudeNum(3);
-        // ���۸�
+        // 最大价格
         maslipstickchart.setMaxValue(600000);
-        // ��С�۸�
+        // 最小价格
         maslipstickchart.setMinValue(100);
 
         maslipstickchart.setDisplayFrom(10);
@@ -645,9 +645,9 @@ public class ShowAll extends ActionBarActivity {
         maslipstickchart.setAxisXPosition(GridChart.AXIS_X_POSITION_BOTTOM);
         maslipstickchart.setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // Ϊchart1���Ӿ���
+        // 为chart1增加均线
         maslipstickchart.setLineData(vlines);
-        // Ϊchart1���Ӿ���
+        // 为chart1增加均线
         maslipstickchart.setStickData(new ListChartData<IStickEntity>(vol));
     }
 
@@ -681,9 +681,9 @@ public class ShowAll extends ActionBarActivity {
         minusstickchart.setLatitudeColor(Color.GRAY);
         minusstickchart.setLongitudeFontColor(Color.WHITE);
         minusstickchart.setLongitudeColor(Color.GRAY);
-        // ���γ����
+        // 最大纬线数
         minusstickchart.setLatitudeNum(3);
-        // �������
+        // 最大经线数
         minusstickchart.setLongitudeNum(2);
         minusstickchart.setDisplayLongitudeTitle(true);
         minusstickchart.setDisplayLatitudeTitle(true);
@@ -757,9 +757,9 @@ public class ShowAll extends ActionBarActivity {
         slipminusstickchart.setLatitudeColor(Color.GRAY);
         slipminusstickchart.setLongitudeFontColor(Color.WHITE);
         slipminusstickchart.setLongitudeColor(Color.GRAY);
-        // ���γ����
+        // 最大纬线数
         slipminusstickchart.setLatitudeNum(3);
-        // �������
+        // 最大经线数
         slipminusstickchart.setLongitudeNum(2);
         slipminusstickchart.setDisplayFrom(0);
         slipminusstickchart.setDisplayNumber(10);
@@ -797,15 +797,15 @@ public class ShowAll extends ActionBarActivity {
         candlestickchart.setLongitudeFontColor(Color.WHITE);
         candlestickchart.setLatitudeFontColor(Color.WHITE);
 
-        // �����ʾ����
+        // 最大显示足数
         candlestickchart.setMaxSticksNum(52);
-        // ���γ����
+        // 最大纬线数
         candlestickchart.setLatitudeNum(5);
-        // �������
+        // 最大经线数
         candlestickchart.setLongitudeNum(3);
-        // ���۸�
+        // 最大价格
         candlestickchart.setMaxValue(1200);
-        // ��С�۸�
+        // 最小价格
         candlestickchart.setMinValue(200);
 
         candlestickchart.setDisplayLongitudeTitle(true);
@@ -823,7 +823,7 @@ public class ShowAll extends ActionBarActivity {
         candlestickchart.setAxisXPosition(GridChart.AXIS_X_POSITION_BOTTOM);
         candlestickchart.setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // Ϊchart2���Ӿ���
+        // 为chart2增加均线
         candlestickchart.setStickData(new ListChartData<IStickEntity>(ohlc));
     }
 
@@ -837,13 +837,13 @@ public class ShowAll extends ActionBarActivity {
         slipcandlestickchart.setLongitudeFontColor(Color.WHITE);
         slipcandlestickchart.setLatitudeFontColor(Color.WHITE);
 
-        // ���γ����
+        // 最大纬线数
         slipcandlestickchart.setLatitudeNum(5);
-        // �������
+        // 最大经线数
         slipcandlestickchart.setLongitudeNum(3);
-        // ���۸�
+        // 最大价格
         slipcandlestickchart.setMaxValue(1200);
-        // ��С�۸�
+        // 最小价格
         slipcandlestickchart.setMinValue(200);
 
         slipcandlestickchart.setDisplayFrom(10);
@@ -869,7 +869,7 @@ public class ShowAll extends ActionBarActivity {
         slipcandlestickchart.setAxisXPosition(GridChart.AXIS_X_POSITION_BOTTOM);
         slipcandlestickchart.setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // Ϊchart2���Ӿ���
+        // 为chart2增加均线
         slipcandlestickchart
                 .setStickData(new ListChartData<IStickEntity>(ohlc));
     }
@@ -878,21 +878,21 @@ public class ShowAll extends ActionBarActivity {
         this.macandlestickchart = (MACandleStickChart) findViewById(R.id.macandlestickchart);
         List<LineEntity<DateValueEntity>> lines = new ArrayList<LineEntity<DateValueEntity>>();
 
-        // ����5�վ���
+        // 计算5日均线
         LineEntity<DateValueEntity> MA5 = new LineEntity<DateValueEntity>();
         MA5.setTitle("MA5");
         MA5.setLineColor(Color.WHITE);
         MA5.setLineData(initMA(5));
         lines.add(MA5);
 
-        // ����10�վ���
+        // 计算10日均线
         LineEntity<DateValueEntity> MA10 = new LineEntity<DateValueEntity>();
         MA10.setTitle("MA10");
         MA10.setLineColor(Color.RED);
         MA10.setLineData(initMA(10));
         lines.add(MA10);
 
-        // ����25�վ���
+        // 计算25日均线
         LineEntity<DateValueEntity> MA25 = new LineEntity<DateValueEntity>();
         MA25.setTitle("MA25");
         MA25.setLineColor(Color.GREEN);
@@ -907,15 +907,15 @@ public class ShowAll extends ActionBarActivity {
         macandlestickchart.setLongitudeFontColor(Color.WHITE);
         macandlestickchart.setLatitudeFontColor(Color.WHITE);
 
-        // �����ʾ����
+        // 最大显示足数
         macandlestickchart.setMaxSticksNum(52);
-        // ���γ����
+        // 最大纬线数
         macandlestickchart.setLatitudeNum(5);
-        // �������
+        // 最大经线数
         macandlestickchart.setLongitudeNum(3);
-        // ���۸�
+        // 最大价格
         macandlestickchart.setMaxValue(1200);
-        // ��С�۸�
+        // 最小价格
         macandlestickchart.setMinValue(200);
 
         macandlestickchart.setDisplayLongitudeTitle(true);
@@ -933,10 +933,10 @@ public class ShowAll extends ActionBarActivity {
         macandlestickchart.setAxisXPosition(GridChart.AXIS_X_POSITION_BOTTOM);
         macandlestickchart.setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // Ϊchart2���Ӿ���
+        // 为chart2增加均线
         macandlestickchart.setLinesData(lines);
 
-        // Ϊchart2���Ӿ���
+        // 为chart2增加均线
         macandlestickchart.setStickData(new ListChartData<IStickEntity>(ohlc));
 
     }
@@ -945,21 +945,21 @@ public class ShowAll extends ActionBarActivity {
         this.maslipcandlestickchart = (MASlipCandleStickChart) findViewById(R.id.maslipcandlestickchart);
         List<LineEntity<DateValueEntity>> lines = new ArrayList<LineEntity<DateValueEntity>>();
 
-        // ����5�վ���
+        // 计算5日均线
         LineEntity<DateValueEntity> MA5 = new LineEntity<DateValueEntity>();
         MA5.setTitle("MA5");
         MA5.setLineColor(Color.WHITE);
         MA5.setLineData(initMA(5));
         lines.add(MA5);
 
-        // ����10�վ���
+        // 计算10日均线
         LineEntity<DateValueEntity> MA10 = new LineEntity<DateValueEntity>();
         MA10.setTitle("MA10");
         MA10.setLineColor(Color.RED);
         MA10.setLineData(initMA(10));
         lines.add(MA10);
 
-        // ����25�վ���
+        // 计算25日均线
         LineEntity<DateValueEntity> MA25 = new LineEntity<DateValueEntity>();
         MA25.setTitle("MA25");
         MA25.setLineColor(Color.GREEN);
@@ -974,13 +974,13 @@ public class ShowAll extends ActionBarActivity {
         maslipcandlestickchart.setLongitudeFontColor(Color.WHITE);
         maslipcandlestickchart.setLatitudeFontColor(Color.WHITE);
 
-        // ���γ����
+        // 最大纬线数
         maslipcandlestickchart.setLatitudeNum(5);
-        // �������
+        // 最大经线数
         maslipcandlestickchart.setLongitudeNum(3);
-        // ���۸�
+        // 最大价格
         maslipcandlestickchart.setMaxValue(1200);
-        // ��С�۸�
+        // 最小价格
         maslipcandlestickchart.setMinValue(200);
 
         maslipcandlestickchart.setDisplayFrom(10);
@@ -1008,10 +1008,10 @@ public class ShowAll extends ActionBarActivity {
         maslipcandlestickchart
                 .setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // Ϊchart2���Ӿ���
+        // 为chart2增加均线
         maslipcandlestickchart.setLinesData(lines);
 
-        // Ϊchart2���Ӿ���
+        // 为chart2增加均线
         maslipcandlestickchart.setStickData(new ListChartData<IStickEntity>(
                 ohlc));
 
@@ -1069,21 +1069,21 @@ public class ShowAll extends ActionBarActivity {
         this.bollmaslipcandlestickchart = (BOLLMASlipCandleStickChart) findViewById(R.id.bollmaslipcandlestickchart);
         List<LineEntity<DateValueEntity>> lines = new ArrayList<LineEntity<DateValueEntity>>();
 
-        // ����5�վ���
+        // 计算5日均线
         LineEntity<DateValueEntity> MA5 = new LineEntity<DateValueEntity>();
         MA5.setTitle("MA5");
         MA5.setLineColor(Color.WHITE);
         MA5.setLineData(initMA(5));
         lines.add(MA5);
 
-        // ����10�վ���
+        // 计算10日均线
         LineEntity<DateValueEntity> MA10 = new LineEntity<DateValueEntity>();
         MA10.setTitle("MA10");
         MA10.setLineColor(Color.RED);
         MA10.setLineData(initMA(10));
         lines.add(MA10);
 
-        // ����25�վ���
+        // 计算25日均线
         LineEntity<DateValueEntity> MA25 = new LineEntity<DateValueEntity>();
         MA25.setTitle("MA25");
         MA25.setLineColor(Color.GREEN);
@@ -1111,13 +1111,13 @@ public class ShowAll extends ActionBarActivity {
         bollmaslipcandlestickchart.setLongitudeFontColor(Color.WHITE);
         bollmaslipcandlestickchart.setLatitudeFontColor(Color.WHITE);
 
-        // ���γ����
+        // 最大纬线数
         bollmaslipcandlestickchart.setLatitudeNum(5);
-        // �������
+        // 最大经线数
         bollmaslipcandlestickchart.setLongitudeNum(3);
-        // ���۸�
+        // 最大价格
         bollmaslipcandlestickchart.setMaxValue(1200);
-        // ��С�۸�
+        // 最小价格
         bollmaslipcandlestickchart.setMinValue(200);
 
         bollmaslipcandlestickchart.setDisplayFrom(10);
@@ -1146,11 +1146,11 @@ public class ShowAll extends ActionBarActivity {
         bollmaslipcandlestickchart
                 .setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // Ϊchart2���Ӿ���
+        // 为chart2增加均线
         bollmaslipcandlestickchart.setLinesData(lines);
         bollmaslipcandlestickchart.setBandData(band);
 
-        // Ϊchart2���Ӿ���
+        // 为chart2增加均线
         bollmaslipcandlestickchart
                 .setStickData(new ListChartData<IStickEntity>(ohlc));
 
@@ -1349,7 +1349,7 @@ public class ShowAll extends ActionBarActivity {
         macdChart.setAxisXPosition(GridChart.AXIS_X_POSITION_BOTTOM);
         macdChart.setAxisYPosition(GridChart.AXIS_Y_POSITION_RIGHT);
 
-        // ����stickData
+        // 设置stickData
         macdChart.setStickData(new ListChartData<IStickEntity>(macd));
     }
 

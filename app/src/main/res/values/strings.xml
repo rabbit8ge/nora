@@ -63,6 +63,13 @@
     <string name="add_to_favorite">Add to Favoriate</string>
     <string name="remove_from_favorite">Remove from Favorite</string>
 
+    <!-- controls text -->
+    <string name="ctrl_btn_sell">Sell</string>
+    <string name="ctrl_btn_buy">Buy</string>
+    <string name="ctrl_btn_task">Task</string>
+    <string name="ctrl_btn_qa">QA</string>
+    <string name="ctrl_btn_me">Me</string>
+
     <!-- error information -->
     <string name="error_can_not_find_stock">Can\'t find the stock:</string>
 <!--zy end-->

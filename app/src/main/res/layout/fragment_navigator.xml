@@ -5,7 +5,7 @@
     android:background="#333333"
     tools:context="com.he.app.nora.NavigatorFragment">
 
-    <Button
+    <!--<Button
         android:id="@+id/btn_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,18 +16,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Favorite"/>
+        android:text="Favorite"/>-->
     <Button
-        android:id="@+id/btn_my"
+        android:id="@+id/btn_sell"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="My"/>
+        android:text="@string/ctrl_btn_sell"
+        />
+    <Button
+        android:id="@+id/btn_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/ctrl_btn_buy"
+        />
+    <Button
+        android:id="@+id/btn_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/ctrl_btn_task"
+        />
+    <Button
+        android:id="@+id/btn_qa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/ctrl_btn_qa"
+        />
+    <Button
+        android:id="@+id/btn_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/ctrl_btn_me"
+        />
     <ImageButton
         android:id="@+id/btn_search"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
         android:layout_gravity="right"
         android:background="@android:drawable/ic_menu_search"
         />

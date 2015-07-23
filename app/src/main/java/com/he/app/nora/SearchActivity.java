@@ -1,9 +1,14 @@
 package com.he.app.nora;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.he.app.nora.display.ShowAll;
 
 
 public class SearchActivity extends ActionBarActivity {
@@ -12,6 +17,27 @@ public class SearchActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        Intent intent = getIntent();
+        if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+
+            // Get extra data.
+            Bundle appData = intent.getBundleExtra(SearchManager.APP_DATA);
+            if(appData != null) {
+                appData.getString("ddd");
+            }
+
+            Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG);
+            searchStock(query);
+
+            // Start the ShowActivity to show the stock.
+            Intent stkIntent = new Intent(SearchActivity.this, ShowStockActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("stock", new DataWrapper.Stock("000001"));
+            stkIntent.putExtras(bundle);
+            startActivity(stkIntent);
+        }
     }
 
 
@@ -35,5 +61,9 @@ public class SearchActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public DataWrapper.Stock searchStock(String desc) {
+        return new DataWrapper.Stock("000001");
     }
 }

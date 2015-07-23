@@ -1,14 +1,15 @@
 package com.he.app.nora;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.StrictMode;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +19,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity implements FavoriteListFragment.OnFragmentInteractionListener {
+import com.he.app.nora.fragment_buy.BuyNiuguFragment;
+
+public class MainActivity extends ActionBarActivity implements
+        SellFragment.OnFragmentInteractionListener,
+        BuyFragment.OnFragmentInteractionListener,
+        TaskFragment.OnFragmentInteractionListener,
+        QAFragment.OnFragmentInteractionListener,
+        MeFragment.OnFragmentInteractionListener,
+        BuyNiuguFragment.OnFragmentInteractionListener,
+        FavoriteListFragment.OnFragmentInteractionListener { // TODO: Temporary.
 
     // Navigate ids.
     private final int NAVIGATE_ID_HOME = Menu.FIRST + 0;
@@ -26,6 +36,7 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
     private final int NAVIGATE_ID_PERSONAL = Menu.FIRST + 2;
     private final int SEARCH_MENU = Menu.FIRST + 3;
 
+    // Fragment manager.
     private FragmentManager mFragManager;
 
     @Override
@@ -42,9 +53,10 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
         }
 
         ActionBar ab = getSupportActionBar();
-        //ab.hide();
+        ab.hide();
 
-        mFragManager = getSupportFragmentManager();
+        //mFragManager = getSupportFragmentManager();
+        mFragManager = getFragmentManager();
 
         // HE: Without these lines, can't connect to internet.
         /*StrictMode.setThreadPolicy(new StrictMode().ThreadPolicy.Builder()
@@ -81,14 +93,6 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
         // Test
        // Intent intent = new Intent(MainActivity.this, SearchActivity.class);
        // startActivity(intent);
-    }
-
-    private void handleSearchQuery(Intent queryIntent) {
-        String queryAction = queryIntent.getAction();
-        if(Intent.ACTION_SEARCH.equals(queryAction)) {
-            Toast.makeText(this, queryIntent.getStringExtra(SearchManager.QUERY),
-                    Toast.LENGTH_LONG).show();
-        }
     }
 
 
@@ -151,9 +155,17 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
     }
 
     @Override
-    public void onFragmentInteraction(String id) {
-        //Toast.makeText(this, id, Toast.LENGTH_LONG);
+    public void onFragmentInteraction(Uri uri) {
+        // Start the ShowStockActivity to show the favorite stock.
+        //Toast.makeText(getApplicationContext(), uri.toString(), Toast.LENGTH_LONG).show();
+        Intent i = new Intent(MainActivity.this, ShowStockActivity.class);
+        i.putExtra(ShowStockActivity.INTENT_KEY_STOCK_ID, uri.toString());
+        startActivity(i);
+    }
 
+    // TODO: Temporary.
+    @Override
+    public void onFragmentInteraction(String id) {
         // Start the ShowStockActivity to show the favorite stock.
         Intent i = new Intent(MainActivity.this, ShowStockActivity.class);
         i.putExtra(ShowStockActivity.INTENT_KEY_STOCK_ID, id);
@@ -183,9 +195,7 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
 
         private FragmentManager mFragManager;
 
-        private Button mBtnHome;
-        private Button mBtnFavorite;
-        private Button mBtnMy;
+        private Button mBtnSell, mBtnBuy, mBtnTask, mBtnQA, mBtnMe;
         private ImageButton mBtnSearch;
 
         public NavigatorFragment() {
@@ -200,38 +210,68 @@ public class MainActivity extends ActionBarActivity implements FavoriteListFragm
             mFragManager = getFragmentManager();
 
             // Buttons.
-            mBtnHome = (Button) rootView.findViewById(R.id.btn_home);
-            mBtnFavorite = (Button) rootView.findViewById(R.id.btn_favorite);
-            mBtnMy = (Button) rootView.findViewById(R.id.btn_my);
+            mBtnSell = (Button) rootView.findViewById(R.id.btn_sell);
+            mBtnBuy = (Button) rootView.findViewById(R.id.btn_buy);
+            mBtnTask = (Button) rootView.findViewById(R.id.btn_task);
+            mBtnQA = (Button) rootView.findViewById(R.id.btn_qa);
+            mBtnMe = (Button) rootView.findViewById(R.id.btn_me);
             mBtnSearch = (ImageButton) rootView.findViewById(R.id.btn_search);
 
-            mBtnHome.setOnClickListener(new View.OnClickListener() {
+            mBtnSell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    PlaceholderFragment frag = new PlaceholderFragment();
+                    //PlaceholderFragment frag = new PlaceholderFragment();
+                    SellFragment frag = new SellFragment();
                     FragmentTransaction trans = getFragmentManager().beginTransaction();
-                    trans.replace(R.id.frag_main, frag, "frag_home");
-                    trans.addToBackStack("frag_home");
-                    //Toast.makeText(getCon, "Home", Toast.LENGTH_LONG);
+                    trans.replace(R.id.frag_main, frag, "frag_sell");
+                    trans.addToBackStack("frag_sell");
                     trans.commit();
                 }
             });
-            mBtnFavorite.setOnClickListener(new View.OnClickListener() {
+            mBtnBuy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //FavoriteFragment frag = new FavoriteFragment();
+                    BuyFragment frag = new BuyFragment();
+                    FragmentTransaction trans = getFragmentManager().beginTransaction();
+                    trans.replace(R.id.frag_main, frag, "frag_buy");
+                    trans.addToBackStack("frag_buy");
+                    trans.commit();
+                }
+            });
+            mBtnTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TaskFragment frag = new TaskFragment();
+                    FragmentTransaction trans = getFragmentManager().beginTransaction();
+                    trans.replace(R.id.frag_main, frag, "frag_task");
+                    trans.addToBackStack("frag_task");
+                    trans.commit();
+                }
+            });
+            mBtnQA.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    QAFragment frag = new QAFragment();
+                    FragmentTransaction trans = getFragmentManager().beginTransaction();
+                    trans.replace(R.id.frag_main, frag, "frag_qa");
+                    trans.addToBackStack("frag_qa");
+                    trans.commit();
+                }
+            });
+            mBtnMe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //MeFragment frag = new MeFragment();
                     FavoriteListFragment frag = new FavoriteListFragment();
                     FragmentTransaction trans = getFragmentManager().beginTransaction();
-                    trans.replace(R.id.frag_main, frag, "frag_favorite");
-                    trans.addToBackStack("frag_favorite");
+                    trans.replace(R.id.frag_main, frag, "frag_me");
+                    trans.addToBackStack("frag_me");
                     trans.commit();
                 }
             });
             mBtnSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /*Intent intent = new Intent(getActivity(), SearchActivity.class);
-                    startActivity(intent);*/
                     getActivity().onSearchRequested();
                 }
             });

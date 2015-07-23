@@ -4,12 +4,19 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import android.content.SearchRecentSuggestionsProvider;
 
-public class SearchSuggestionProvider extends ContentProvider {
+public class SearchSuggestionProvider extends SearchRecentSuggestionsProvider {
+
+    public final static String AUTHORITY = "com.he.app.nora.SearchSuggestionProvider";
+    public final static int MODE = DATABASE_MODE_QUERIES;
+
     public SearchSuggestionProvider() {
+        super();
+        setupSuggestions(AUTHORITY, MODE);
     }
 
-    @Override
+ /*   @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         // Implement this to handle requests to delete one or more rows.
         throw new UnsupportedOperationException("Not yet implemented");
@@ -47,4 +54,5 @@ public class SearchSuggestionProvider extends ContentProvider {
         // TODO: Implement this to handle requests to update one or more rows.
         throw new UnsupportedOperationException("Not yet implemented");
     }
+    */
 }

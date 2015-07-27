@@ -51,7 +51,7 @@ import cn.limc.androidcharts.view.SlipMinusStickChart;
 import cn.limc.androidcharts.view.SlipStickChart;
 import cn.limc.androidcharts.view.SpiderWebChart;
 import cn.limc.androidcharts.view.StickChart;
-//todo: clear charts, reset interface
+
 public class ShowAll extends ActionBarActivity {
 
     List<IStickEntity> ohlc;

@@ -1,0 +1,45 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbars="none">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/linechart" />
+
+        <com.he.app.nora.display.MinuteLineChart
+            android:id="@+id/minuteLinechart"
+            android:layout_width="fill_parent"
+            android:layout_height="240dip"
+            android:longClickable="false" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/stickchart" />
+
+        <cn.limc.androidcharts.view.StickChart
+            android:id="@+id/stickchart"
+            android:layout_width="fill_parent"
+            android:layout_height="240dip" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/macandlestickchart" />
+
+        <cn.limc.androidcharts.view.MACandleStickChart
+            android:id="@+id/macandlestickchart"
+            android:layout_width="fill_parent"
+            android:layout_height="240dip" />
+
+    </LinearLayout>
+</ScrollView>

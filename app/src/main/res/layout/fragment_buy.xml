@@ -3,7 +3,37 @@
     android:layout_height="match_parent" tools:context="com.he.app.nora.BuyFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <!--<TextView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />-->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ctrl_tv_niugu"
+            android:layout_weight="0"/>
+       <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="?android:attr/listDivider"/>
+        <ListView
+            android:id="@+id/lv_suggestion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            ></ListView>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="3px"
+            android:background="?android:attr/listDivider"/>
+        <fragment
+            android:id="@+id/frag_buy_niugu"
+            android:name="com.he.app.nora.fragment_buy.BuyNiuguFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            ></fragment>
+        </LinearLayout>
 
 </FrameLayout>

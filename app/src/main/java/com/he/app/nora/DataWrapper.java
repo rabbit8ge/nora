@@ -65,6 +65,9 @@ public class DataWrapper {
         public Stock(String id) {
             mID = id;
             mName = "";
+            mAbbr = "";
+            mPrice = 0.0f;
+            mType = StockType.STOCK_TYPE_SH;
         }
 
         public Stock(String id, StockType type, String name, String abbr) {

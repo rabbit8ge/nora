@@ -10,36 +10,47 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true">
+
+        <!-- This is for minute line in a day-->
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/linechart" />
+            android:text="@string/MinuteLineTitle" />
 
         <com.he.app.nora.display.MinuteLineChart
             android:id="@+id/minuteLinechart"
             android:layout_width="fill_parent"
-            android:layout_height="240dip"
+            android:layout_height="140dip"
             android:longClickable="false" />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/stickchart" />
+        <!-- This stick chart is for the volume chart. We don't need this title.-->
+        <!--<TextView-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/stickchart" />-->
 
         <cn.limc.androidcharts.view.StickChart
             android:id="@+id/stickchart"
             android:layout_width="fill_parent"
-            android:layout_height="240dip" />
+            android:layout_height="60dip" />
+    </LinearLayout>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/macandlestickchart" />
+        <!-- K line and MACD lines of history-->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/KLineTitle" />
 
-        <cn.limc.androidcharts.view.MACandleStickChart
-            android:id="@+id/macandlestickchart"
-            android:layout_width="fill_parent"
-            android:layout_height="240dip" />
+    <cn.limc.androidcharts.view.MACandleStickChart
+        android:id="@+id/macandlestickchart"
+        android:layout_width="fill_parent"
+        android:layout_height="240dip" />
 
     </LinearLayout>
 </ScrollView>

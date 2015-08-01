@@ -65,6 +65,8 @@
     <!--zy end-->
 
     <string name="minuteLinechart">Minute Chart</string>
+    <string name="KLineTitle">History Overview</string>
+    <string name="MinuteLineTitle">Realtime Price</string>
 
     <!-- controls text -->
     <string name="ctrl_btn_sell">Sell</string>

@@ -59,7 +59,7 @@ public class OverViewShowActivity extends ActionBarActivity {
 
     private LineChart minuteLineChart = null;
     private StickChart stickchart = null;
-    private MACandleStickChart macandlestickchart = null;
+    private KLineChart macandlestickchart = null;
 
     private void initDataForKLineChart(){
 
@@ -299,7 +299,7 @@ public class OverViewShowActivity extends ActionBarActivity {
     private void initMACandleStickChart(IChartData<IStickEntity> dataOHLC,
                                         List<LineEntity<DateValueEntity>> dataMACDs
                                         ) {
-        this.macandlestickchart = (MACandleStickChart) findViewById(R.id.macandlestickchart);
+        this.macandlestickchart = (KLineChart) findViewById(R.id.kLineChart);
         List<LineEntity<DateValueEntity>> lines = new ArrayList<LineEntity<DateValueEntity>>();
 
         for(LineEntity<DateValueEntity> line : dataMACDs)

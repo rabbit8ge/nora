@@ -5,7 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
+import android.content.Context;
 import android.os.Environment;
 
 public class FileUtility {
@@ -68,6 +71,31 @@ public class FileUtility {
 		}
 		return file;
 	}
+
+    public OutputStream Write2InnerFromInput(Context context, String subpath, String filename, InputStream input) {
+        // Write to disk.
+        //OutputStream writer = null;
+        OutputStream out = null;
+        try {
+            out = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            //writer = new FileOutputStream(out);
+            byte buffer[] = new byte[4 * 1024];
+            while (input.read(buffer) != -1) {
+                out.write(buffer);
+            }
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null)
+                    out.close();
+            } catch (IOException e) {
+
+            }
+        }
+        return out;
+    }
 }
 
 

@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ctrl_tv_niugu"
+            android:text="@string/ctrl_tv_favorite"
             android:layout_weight="0"/>
        <View
             android:layout_width="fill_parent"

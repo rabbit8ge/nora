@@ -12,6 +12,6 @@
         android:id="@+id/frag_show"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#FF0000" />
+        android:background="#F0F0F0" />
 
 </RelativeLayout>

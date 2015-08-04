@@ -71,7 +71,8 @@
     <string name="ctrl_btn_me">Me</string>
 
     <!-- text view -->
-    <string name="ctrl_tv_niugu">Niu gu</string>
+    <string name="ctrl_tv_favorite">Favorite</string>
+    <string name="ctrl_tv_niugu">牛股</string>
 
     <!-- error information -->
     <string name="error_can_not_find_stock">Can\'t find the stock:</string>

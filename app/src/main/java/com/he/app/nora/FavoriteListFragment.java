@@ -6,11 +6,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 //import android.app.ListFragment;
 import android.os.Handler;
 //import android.support.v4.app.ListFragment;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -191,10 +195,6 @@ public class FavoriteListFragment extends ListFragment {
             //FavoriteContent.FavoriteItem fi = (FavoriteContent.FavoriteItem) getListAdapter().getItem(position); // TODO.
             DataWrapper.Stock fi = ((FavoriteListAdapter)getListAdapter()).getItem(position);
             mListener.onFragmentInteraction(fi.mID); // TODO.
-
-            //DataWrapper dw = new DataWrapper();
-            DataWrapper.Stock stk = DataWrapper.getStock("000001");
-            Toast.makeText(getActivity(), stk.mName, Toast.LENGTH_LONG);
         }
     }
 
@@ -259,7 +259,18 @@ public class FavoriteListFragment extends ListFragment {
                     (TextView) convertView.findViewById(R.id.favorite_list_price);
             price.setText(fi.mPrice.toString());
 
-           // Log.d("hello", fi.mPrice.toString());
+            TextView incr =
+                    (TextView) convertView.findViewById(R.id.favorite_list_incr);
+            Float incrFloat = (fi.mPrice-fi.mYesterdayClosingPrice)/fi.mYesterdayClosingPrice*100;
+            incr.setText(incrFloat.toString()+"%");
+            if(incrFloat > 0)
+                incr.setTextColor(Color.RED);
+            else
+                incr.setTextColor(Color.GREEN);
+
+            TextView note =
+                    (TextView) convertView.findViewById(R.id.favorite_list_note);
+            note.setText(fi.mNote);
 
             return convertView;
         }

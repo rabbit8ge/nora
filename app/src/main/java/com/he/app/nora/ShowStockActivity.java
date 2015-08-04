@@ -69,11 +69,13 @@ public class ShowStockActivity extends Activity {
 
     // Intent key of stock id to show.
     public static final String INTENT_KEY_STOCK_ID = "idStock";
+    public static final String INTENT_KEY_STOCK_INS = "insStock"; // Stock instance.
 
     // Controls.
     private Button mBtnFavoriateToggle = null;
 
-    private String mStockId = null;
+    private String mStockId = null; // Stock id is transffered as a parameter.
+    private DataWrapper.Stock mStock = null; // Stock is initialized with DataWrapper methods.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,10 +108,16 @@ public class ShowStockActivity extends Activity {
             if(mStockId == null) {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_can_not_find_stock) + query,
                         Toast.LENGTH_LONG).show();
-                mBtnFavoriateToggle.setEnabled(false);
             }
         } else { // Normally start.
             mStockId = intent.getStringExtra(INTENT_KEY_STOCK_ID);
+        }
+
+        // Not valid stock id.
+        mStock = DataWrapper.getStock(mStockId);
+        if(mStock == null) {
+            Toast.makeText(getApplicationContext(), "It\'s a invalid stock id: "+mStockId, Toast.LENGTH_LONG).show();
+            onDestroy();
         }
 
         // Configure favorite toggle button.

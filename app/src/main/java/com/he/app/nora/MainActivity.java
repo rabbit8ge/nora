@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.StrictMode;
@@ -36,6 +37,8 @@ public class MainActivity extends ActionBarActivity implements
     private final int NAVIGATE_ID_PERSONAL = Menu.FIRST + 2;
     private final int SEARCH_MENU = Menu.FIRST + 3;
 
+    public static Context ctxApplication = null;
+
     // Fragment manager.
     private FragmentManager mFragManager;
 
@@ -51,6 +54,8 @@ public class MainActivity extends ActionBarActivity implements
                     .add(R.id.container_navigator, new NavigatorFragment())
                     .commit();*/
         }
+
+        ctxApplication = getApplicationContext();
 
         ActionBar ab = getSupportActionBar();
         ab.hide();
@@ -167,7 +172,16 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     public void onFragmentInteraction(String id) {
         // Start the ShowStockActivity to show the favorite stock.
+
+        // Initialize stock instance.
+        DataWrapper.Stock stk = new DataWrapper.Stock(id);
+        stk.loadHistory();
+
+        // Initialize intent.
         Intent i = new Intent(MainActivity.this, ShowStockActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ShowStockActivity.INTENT_KEY_STOCK_INS, stk);
+        i.putExtras(bundle);
         i.putExtra(ShowStockActivity.INTENT_KEY_STOCK_ID, id);
         startActivity(i);
     }

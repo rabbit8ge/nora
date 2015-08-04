@@ -35,8 +35,8 @@
             <!--android:layout_height="wrap_content"-->
             <!--android:text="@string/stickchart" />-->
 
-        <cn.limc.androidcharts.view.StickChart
-            android:id="@+id/stickchart"
+        <com.he.app.nora.display.KLineChart
+            android:id="@+id/kLineChart"
             android:layout_width="fill_parent"
             android:layout_height="60dip" />
     </LinearLayout>

@@ -6,6 +6,8 @@ import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import java.util.Map;
+
 import cn.limc.androidcharts.event.ITouchable;
 import cn.limc.androidcharts.event.OnTouchGestureListener;
 import cn.limc.androidcharts.view.MACandleStickChart;
@@ -15,7 +17,7 @@ import cn.limc.androidcharts.view.MACandleStickChart;
  */
 public class KLineChart extends MACandleStickChart {
 
-    private Map<Int,String> mapTextHint4Lines = null;
+    private Map<Integer,String> mapTextHint4Lines = null;
 
 
     public KLineChart(Context context) {
@@ -30,54 +32,54 @@ public class KLineChart extends MACandleStickChart {
         super(context, attrs);
     }
 
-    private void setOnTouchListener()
-    {
-        this.setOnTouchListener(
-                new OnTouchGestureListener() {
-                    @Override
-                    public void onTouchDown(ITouchable touchable, MotionEvent event) {
-                        super.onTouchDown(touchable, event);
-                        this.touchDown(new PointF(event.getX(), event.getY()));
-                    }
-
-                    @Override
-                    public void onTouchMoved(ITouchable touchable, MotionEvent event) {
-                        super.onTouchMoved(touchable, event);
-                        this.touchMoved(new PointF(event.getX(), event.getY()));
-                    }
-
-                    @Override
-                    public void onTouchUp(ITouchable touchable, MotionEvent event) {
-                        super.onTouchUp(touchable, event);
-                        this.touchUp(new PointF(event.getX(), event.getY()));
-                    }
-                }
-        );
-    }
-
-    Override
-    public void touchDown(PointF p)
-    {
-        //
-        super.touchDown(p);
-    }
-    Override
-    public void touchMoved(PointF p)
-    {
-        // implementation
-        super.touchMoved(p);
-    }
-    Override
-    public void touchUp(PointF p)
-    {
-        // implementation
-        super.touchUp(p);
-    }
-    Override
+//    private void setOnTouchListener()
+//    {
+//        this.setOnTouchListener(
+//                new OnTouchListener() {
+//                    @Override
+//                    public void onTouchDown(ITouchable touchable, MotionEvent event) {
+//                        super.onTouchDown(touchable, event);
+//                        this.touchDown(new PointF(event.getX(), event.getY()));
+//                    }
+//
+//                    @Override
+//                    public void onTouchMoved(ITouchable touchable, MotionEvent event) {
+//                        super.onTouchMoved(touchable, event);
+//                        this.touchMoved(new PointF(event.getX(), event.getY()));
+//                    }
+//
+//                    @Override
+//                    public void onTouchUp(ITouchable touchable, MotionEvent event) {
+//                        super.onTouchUp(touchable, event);
+//                        this.touchUp(new PointF(event.getX(), event.getY()));
+//                    }
+//                }
+//        );
+//    }
+//
+//    @Override
+//    public void touchDown(PointF p)
+//    {
+//        //
+//        super.touchDown(p);
+//    }
+//    @Override
+//    public void touchMoved(PointF p)
+//    {
+//        // implementation
+//        super.touchMoved(p);
+//    }
+//    @Override
+//    public void touchUp(PointF p)
+//    {
+//        // implementation
+//        super.touchUp(p);
+//    }
+//    @Override
     protected void onDraw(Canvas canvas)
     {
         this.drawHint(canvas);
-        supper.onDraw(canvas);
+        super.onDraw(canvas);
     }
     protected void drawHint(Canvas canvas)
     {
@@ -87,7 +89,7 @@ public class KLineChart extends MACandleStickChart {
     }
 
     // this map is for draw text: key - index of the linesData, value - title
-    public  void SetTextHint4Lines(Map<Int, String> textHint)
+    public  void SetTextHint4Lines(Map<Integer, String> textHint)
     {
         this.mapTextHint4Lines = textHint;
     }

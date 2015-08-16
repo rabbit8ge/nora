@@ -69,6 +69,11 @@
             android:enabled="true"
             android:exported="true" >
         </provider>
+
+        <activity
+            android:name=".display.OverViewShowActivity"
+            android:label="@string/title_activity_over_view_show" >
+        </activity>
     </application>
 
 </manifest>
